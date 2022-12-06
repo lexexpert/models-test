@@ -1,7 +1,11 @@
 import Head from 'next/head';
-import styles from './layout.module.css';
 import { ReactChild } from 'react';
 import { mainConfig } from 'config/main.config';
+import Header from 'components/Header';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
+import Footer from 'components/Footer';
+import Box from '@mui/material/Box';
 
 interface LayoutPropsType {
   children: ReactChild;
@@ -10,29 +14,22 @@ interface LayoutPropsType {
 
 export default function Layout({ children, home }: LayoutPropsType) {
   return (
-    <div className={styles.container}>
+    <Stack sx={{ height: '100%' }}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
         <title>{mainConfig.appName}</title>
         <meta name="description" content="OnlyModels description" />
         <meta property="og:image" content={`favicon.ico`} />
         <meta name="og:title" content={mainConfig.appName} />
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <h1>{mainConfig.appName} home page layout</h1>
-          </>
-        ) : (
-          <>
-            <div>Other layout</div>
-          </>
-        )}
-      </header>
-      <main>{children}</main>
-      <footer>
-        <div>Footer</div>
-      </footer>
-    </div>
+      <Box component="header">
+        <Header />
+      </Box>
+      <Box component="main">
+        <Container maxWidth={mainConfig.maxContainerWidth}>{children}</Container>
+      </Box>
+      <Box component="footer">
+        <Footer />
+      </Box>
+    </Stack>
   );
 }

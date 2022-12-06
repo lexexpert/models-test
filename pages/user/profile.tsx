@@ -1,14 +1,12 @@
-// mui
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-// components
 import Layout from 'components/Layout';
 
-export default function Home() {
+export default function Profile() {
   return (
     <Layout home>
       <Box sx={{ textAlign: 'center', p: 3 }}>
-        <Typography variant="h3">Home</Typography>
+        <Typography variant="h3">User profile</Typography>
       </Box>
     </Layout>
   );
