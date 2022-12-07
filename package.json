@@ -9,7 +9,7 @@
     "dev": "next dev -p 3003",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start -p 3003"
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

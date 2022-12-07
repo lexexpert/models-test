@@ -50,4 +50,4 @@ jobs:
             cd onlymodels
             yarn
             yarn build
-            yarn start
+            pm2 start ./node_modules/next/dist/bin/next -p 80 --name onlymodels --watch
