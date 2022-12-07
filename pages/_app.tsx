@@ -1,7 +1,7 @@
 import 'styles/global.scss';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
-import ThemeProvider from '../theme/ThemeProvider';
+import ThemeProvider from '../theme/theme.provider';
 
 function App({ Component, pageProps }: AppProps) {
   return (
