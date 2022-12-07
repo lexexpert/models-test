@@ -46,6 +46,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            nvm install 16
+            nvm use 16
             npm install yarn -g
             yarn
             yarn build
