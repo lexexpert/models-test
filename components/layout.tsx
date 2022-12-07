@@ -9,10 +9,9 @@ import Box from '@mui/material/Box';
 
 interface LayoutPropsType {
   children: ReactChild;
-  home: boolean;
 }
 
-export default function Layout({ children, home }: LayoutPropsType) {
+export default function Layout({ children }: LayoutPropsType) {
   return (
     <Stack sx={{ height: '100%' }}>
       <Head>

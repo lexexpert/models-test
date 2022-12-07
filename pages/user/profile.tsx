@@ -4,7 +4,7 @@ import Layout from 'components/Layout';
 
 export default function Profile() {
   return (
-    <Layout home>
+    <Layout>
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography variant="h3">User profile</Typography>
       </Box>
