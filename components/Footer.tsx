@@ -1,8 +1,8 @@
 // next
 import NextLink from 'next/link';
 // @mui
-import { styled } from '@mui/material/styles';
-import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
+// import { styled } from '@mui/material/styles';
+import { Grid, Divider, Container, Typography, Stack, Box } from '@mui/material';
 // components
 import { mainConfig } from 'config/main.config';
 
@@ -36,16 +36,16 @@ const LINKS = [
   },
 ];
 
-const RootStyle = styled('div')(({ theme }) => ({
-  position: 'relative',
-  backgroundColor: theme.palette.background.default,
-}));
+// const RootStyle = styled(Box)(({ theme }) => ({
+//   position: 'relative',
+//   backgroundColor: theme.palette.background.default,
+// }));
 
 // ----------------------------------------------------------------------
 
 export default function Footer() {
   return (
-    <RootStyle>
+    <Box sx={{ position: 'relative', backgroundColor: ({ palette }) => palette.background.paper }}>
       <Divider />
       <Container sx={{ pt: 10 }} maxWidth={mainConfig.maxContainerWidth}>
         <Grid
@@ -71,11 +71,16 @@ export default function Footer() {
                   <Typography component="p" variant="overline">
                     {list.headline}
                   </Typography>
-                  {list.children.map((link) => (
-                    <NextLink key={link.name} href={link.href} passHref>
-                      <Link color="primary" variant="body2" sx={{ display: 'block' }}>
-                        {link.name}
-                      </Link>
+                  {list.children?.map((link) => (
+                    <NextLink
+                      key={link.name}
+                      style={{
+                        textDecoration: 'none',
+                      }}
+                      href={link.href}
+                      passHref
+                    >
+                      {link.name}
                     </NextLink>
                   ))}
                 </Stack>
@@ -97,6 +102,6 @@ export default function Footer() {
           © {mainConfig.appName}, {new Date().getFullYear()}. All rights reserved
         </Typography>
       </Container>
-    </RootStyle>
+    </Box>
   );
 }

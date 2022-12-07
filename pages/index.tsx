@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // components
-import Layout from 'components/Layout';
+import Layout from 'components/layout';
 
 export default function Home() {
   return (

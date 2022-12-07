@@ -3,7 +3,7 @@ import { ReactNode, useMemo } from 'react';
 // @mui
 import { CssBaseline, useTheme } from '@mui/material';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
-import { green, orange, purple } from '@mui/material/colors';
+import { blue, purple } from '@mui/material/colors';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           main: purple[500],
         },
         secondary: {
-          main: green[500],
+          main: blue[500],
         },
       },
     }),
