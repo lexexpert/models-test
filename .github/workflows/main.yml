@@ -42,9 +42,10 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST_DNS }}
+          port: 22
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            nvm install yarn -g
+            npm install yarn -g
             yarn
             yarn build
