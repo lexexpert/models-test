@@ -20,6 +20,4 @@ module.exports = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  reactStrictMode: true,
-  swcMinify: true,
 };
