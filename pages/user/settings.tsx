@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import Layout from 'components/layout';
+import Layout from '../../components/layout';
 
 export default function Settings() {
   return (

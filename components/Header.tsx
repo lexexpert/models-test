@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { mainConfig } from 'config/main.config';
+import { mainConfig } from '../config/main.config';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 // Icons

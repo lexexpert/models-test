@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { ReactChild } from 'react';
-import { mainConfig } from 'config/main.config';
+import { mainConfig } from '../config/main.config';
 import Header from './header';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';

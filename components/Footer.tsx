@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 // import { styled } from '@mui/material/styles';
 import { Grid, Divider, Container, Typography, Stack, Box } from '@mui/material';
 // components
-import { mainConfig } from 'config/main.config';
+import { mainConfig } from '../config/main.config';
 
 // ----------------------------------------------------------------------
 
