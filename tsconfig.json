@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext", "es6"],
     "allowJs": true,
     "experimentalDecorators": true,
@@ -11,7 +11,7 @@
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -19,11 +19,9 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "paths": {
+      "@/components/*": ["components/*"]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx", "next.config.js"],
   "exclude": ["node_modules", "**/*.test.ts", "*.test.ts"]
