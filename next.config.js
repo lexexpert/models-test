@@ -20,4 +20,5 @@ module.exports = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  swcMinify: true,
 };
