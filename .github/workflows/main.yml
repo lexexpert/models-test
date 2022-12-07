@@ -49,5 +49,6 @@ jobs:
             nvm install 16
             nvm use 16
             npm install yarn -g
+            cd onlymodels
             yarn
             yarn build
