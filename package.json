@@ -9,7 +9,11 @@
     "dev": "next dev -p 3003",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3003"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlyby/onlymodels.git"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
