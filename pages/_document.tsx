@@ -6,6 +6,9 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          {/* TODO: Delete to enable ronbots indexing */}
+          <meta name="robots" content="noindex" />
+
           {/* Fonts */}
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

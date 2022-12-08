@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { ReactChild } from 'react';
 import { mainConfig } from '../config/main.config';
-import Header from './header.component';
+import Header from './header';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import Footer from './footer.component';
+import Footer from './footer';
 import Box from '@mui/material/Box';
 
 interface LayoutPropsType {

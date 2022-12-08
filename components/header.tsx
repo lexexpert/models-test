@@ -23,7 +23,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Tooltip from '@mui/material/Tooltip';
 
+import Avatar from '@mui/material/Avatar';
+import { useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -66,12 +70,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
+  const [selectedLang, setSelectedLang] = useState(null);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
 
-  const isMenuOpen = Boolean(anchorEl);
+  const isUserMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const languages = [
+    {
+      id: 'en',
+      name: 'English',
+    },
+    {
+      id: 'ru',
+      name: 'Русский',
+    },
+  ];
+
+  useEffect(() => {
+    setSelectedLang(languages.find((lang) => lang.id === router?.locale));
+  }, [router?.locale]);
+
+  console.log({ selectedLang });
 
   const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -107,7 +132,7 @@ export default function Header() {
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={isMenuOpen}
+      open={isUserMenuOpen}
       onClose={handleMenuClose}
     >
       <Link href="/user/profile" legacyBehavior>
@@ -115,7 +140,7 @@ export default function Header() {
           <ListItemIcon>
             <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Profile</ListItemText>
+          <ListItemText>{t('profile')}</ListItemText>
         </MenuItem>
       </Link>
       <Link href="/user/settings" legacyBehavior>
@@ -123,14 +148,14 @@ export default function Header() {
           <ListItemIcon>
             <SettingsIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Settings</ListItemText>
+          <ListItemText>{t('settings')}</ListItemText>
         </MenuItem>
       </Link>
       <MenuItem onClick={handleLogout}>
         <ListItemIcon>
           <LogoutIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Log out</ListItemText>
+        <ListItemText>{t('log_out')}</ListItemText>
       </MenuItem>
     </Menu>
   );
@@ -167,6 +192,14 @@ export default function Header() {
     </Menu>
   );
 
+  const handleOpenLangMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLang(event.currentTarget);
+  };
+
+  const handleCloseLangMenu = () => {
+    setAnchorElLang(null);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -186,9 +219,49 @@ export default function Header() {
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-              <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+              <StyledInputBase placeholder={t('search')} inputProps={{ 'aria-label': 'search' }} />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title={t('language')}>
+                <IconButton
+                  onClick={handleOpenLangMenu}
+                  size="large"
+                  edge="end"
+                  color="inherit"
+                  aria-label="language"
+                  sx={{ mr: 3 }}
+                >
+                  <Typography variant="body1">
+                    {String(selectedLang?.id || 'EN').toUpperCase()}
+                  </Typography>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElLang}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElLang)}
+                onClose={handleCloseLangMenu}
+              >
+                {languages?.map((lang) => (
+                  <MenuItem key={lang.id} onClick={handleCloseLangMenu}>
+                    <Link href={`${router.asPath}`} passHref locale={lang.id}>
+                      <Typography textAlign="center">{lang.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
             <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
               {isAuthenticated ? (
                 <IconButton
@@ -209,7 +282,7 @@ export default function Header() {
                   onClick={() => setIsAuthenticated(true)}
                   startIcon={<LoginIcon />}
                 >
-                  Sign Up
+                  {t('sign_up')}
                 </Button>
               )}
             </Box>

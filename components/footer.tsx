@@ -5,36 +5,10 @@ import NextLink from 'next/link';
 import { Grid, Divider, Container, Typography, Stack, Box } from '@mui/material';
 // components
 import { mainConfig } from '../config/main.config';
+import { useTranslation } from 'next-i18next';
+import Link from '@mui/material/Link';
 
 // ----------------------------------------------------------------------
-
-const LINKS = [
-  {
-    headline: 'For creators',
-    children: [
-      { name: 'Promote your account', href: '#' },
-      { name: 'Affiliate', href: '#' },
-      { name: 'Advertising', href: '#' },
-    ],
-  },
-  {
-    headline: 'Legal',
-    children: [
-      { name: 'Terms and Condition', href: '/terms' },
-      { name: 'Cookies settings', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'DMCA Takedown', href: '#' },
-    ],
-  },
-  {
-    headline: 'Main',
-    children: [
-      { name: 'About us', href: '/' },
-      { name: 'Contact us', href: '/' },
-      { name: 'FAQs', href: '/' },
-    ],
-  },
-];
 
 // const RootStyle = styled(Box)(({ theme }) => ({
 //   position: 'relative',
@@ -44,6 +18,36 @@ const LINKS = [
 // ----------------------------------------------------------------------
 
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const LINKS = [
+    {
+      headline: t('for_creators'),
+      children: [
+        { name: t('promote_your_account'), href: '#' },
+        { name: t('affiliate'), href: '#' },
+        { name: t('advertising'), href: '#' },
+      ],
+    },
+    {
+      headline: t('legal'),
+      children: [
+        { name: t('terms_and_condition'), href: '#' },
+        { name: t('cookies_settings'), href: '#' },
+        { name: t('privacy_policy'), href: '#' },
+        { name: t('dmca_takedown'), href: '#' },
+      ],
+    },
+    {
+      headline: t('main'),
+      children: [
+        { name: t('about_us'), href: '#' },
+        { name: t('contact_us'), href: '#' },
+        { name: t('faq'), href: '#' },
+      ],
+    },
+  ];
+
   return (
     <Box sx={{ position: 'relative', backgroundColor: ({ palette }) => palette.background.paper }}>
       <Divider />
@@ -57,7 +61,7 @@ export default function Footer() {
             <Typography sx={{ mb: 2 }} variant="h5">
               {mainConfig.appName}
             </Typography>
-            <Typography variant="body2">A big database of the model profiles</Typography>
+            <Typography variant="body2">{t('app_description')}</Typography>
           </Grid>
 
           <Grid item xs={12} md={7}>
@@ -72,15 +76,10 @@ export default function Footer() {
                     {list.headline}
                   </Typography>
                   {list.children?.map((link) => (
-                    <NextLink
-                      key={link.name}
-                      style={{
-                        textDecoration: 'none',
-                      }}
-                      href={link.href}
-                      passHref
-                    >
-                      {link.name}
+                    <NextLink key={link.name} href={link.href} passHref>
+                      <Link color="inherit" variant="body2" sx={{ display: 'block' }}>
+                        {link.name}
+                      </Link>
                     </NextLink>
                   ))}
                 </Stack>
@@ -99,7 +98,7 @@ export default function Footer() {
             textAlign: 'center',
           }}
         >
-          © {mainConfig.appName}, {new Date().getFullYear()}. All rights reserved
+          © {mainConfig.appName}, {new Date().getFullYear()}. {t('all_rights_reserved')}
         </Typography>
       </Container>
     </Box>
