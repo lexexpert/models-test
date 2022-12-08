@@ -1,4 +1,7 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 // mui
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -14,6 +17,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { mainConfig } from '../config/main.config';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 // Icons
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -21,13 +25,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Tooltip from '@mui/material/Tooltip';
 
-import Avatar from '@mui/material/Avatar';
-import { useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -281,6 +279,7 @@ export default function Header() {
                   variant="outlined"
                   onClick={() => setIsAuthenticated(true)}
                   startIcon={<LoginIcon />}
+                  sx={{ whiteSpace: 'nowrap' }}
                 >
                   {t('sign_up')}
                 </Button>
