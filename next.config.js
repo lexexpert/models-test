@@ -4,7 +4,7 @@ const { i18n } = require('./next-i18next.config.js');
 module.exports = {
   i18n,
   images: {
-    domains: ['centerfilesstorage.s3.eu-central-1.amazonaws.com'],
+    domains: [process.env.BUCKET_NAME],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],

@@ -36,6 +36,7 @@ jobs:
           script: |
             nvm use 16
             cd ${{ secrets.TARGET_DIR }}
+            aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/.env.production ${{ secrets.TARGET_DIR }}/.env.production
             yarn
             yarn build
             pm2 reload onlymodels
