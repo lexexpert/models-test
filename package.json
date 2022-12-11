@@ -6,7 +6,7 @@
   "private": true,
   "node": "16.15.0",
   "scripts": {
-    "dev": "env-cmd -f .env.local next dev -p 3003",
+    "dev": "next dev -p 3003",
     "lint": "next lint",
     "build": "env-cmd -f .env.production next build",
     "start": "env-cmd -f .env.production next start -p 3003"
@@ -20,6 +20,9 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^0.27.2",
+    "axios-cache-adapter": "^2.7.3",
     "env-cmd": "^10.1.0",
     "i18next": "^22.0.8",
     "knex": "^2.3.0",
@@ -28,6 +31,8 @@
     "pg": "^8.8.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.5",
+    "redux-persist": "^6.0.0",
     "sass": "^1.56.1"
   },
   "devDependencies": {

@@ -7,6 +7,7 @@
   "log_out": "Выход",
   "categories": "Категории",
   "all_category": "Все категории",
+  "category": "Категория",
   "search": "Поиск",
   "clear": "Очистить",
   "profile": "Профиль",
@@ -24,6 +25,6 @@
   "about_us":"О нас",
   "contact_us": "Контакты",
   "faq": "ЧаВо",
-  "all_rights_reserved": "Все права защищены"
-
+  "all_rights_reserved": "Все права защищены",
+  "account": "Аккаунт"
 }

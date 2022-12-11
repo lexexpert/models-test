@@ -7,6 +7,7 @@
   "log_out": "Log out",
   "categories": "Categories",
   "all_category": "All categories",
+  "category": "Category",
   "search": "Search",
   "clear": "Clear",
   "profile": "Profile",
@@ -24,5 +25,6 @@
   "about_us":"About us",
   "contact_us": "Contact us",
   "faq": "FAQs",
-  "all_rights_reserved": "All rights reserved"
+  "all_rights_reserved": "All rights reserved",
+  "account": "Account"
 }

@@ -2,10 +2,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next/types';
+import { GetServerSideProps } from 'next/types';
 import Layout from '../../components/layout';
 
-export default function Profile() {
+export default function UserProfilePage() {
   const { t } = useTranslation();
 
   return (
@@ -17,7 +17,7 @@ export default function Profile() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale ?? 'en', ['common'])),
   },

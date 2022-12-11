@@ -1,30 +1,27 @@
-import { useState, MouseEvent, useEffect } from 'react';
+// next
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+// config
+import { mainConfig } from '../config/main.config';
 // mui
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { mainConfig } from '../config/main.config';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import useMediaQuery from '@mui/material/useMediaQuery';
 // Icons
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
+
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+// components
+import Categories from './categories';
+import Stack from '@mui/material/Stack';
+import LanguageSelector from './languageSelector';
+import MenuAccount from './menuAccount';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -34,11 +31,10 @@ const Search = styled('div')(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
-  marginLeft: 0,
+  marginLeft: theme.spacing(3),
   width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
+  [theme.breakpoints.down('md')]: {
+    margin: 0,
   },
 }));
 
@@ -67,229 +63,100 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const router = useRouter();
   const { t } = useTranslation();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
-  const [selectedLang, setSelectedLang] = useState(null);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-
-  const isUserMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const languages = [
-    {
-      id: 'en',
-      name: 'English',
+  const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    margin: 0,
+    padding: theme.spacing(1),
+    // marginBottom: theme.spacing(1),
+    // display: 'flex',
+    // flexDirection: 'column',
+    // Override media queries injected by theme.mixins.toolbar
+    '@media all': {
+      padding: theme.spacing(0),
+      // minHeight: 'auto',
     },
-    {
-      id: 'ru',
-      name: 'Русский',
-    },
-  ];
-
-  useEffect(() => {
-    setSelectedLang(languages.find((lang) => lang.id === router?.locale));
-  }, [router?.locale]);
-
-  console.log({ selectedLang });
-
-  const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleLogout = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-    setIsAuthenticated(false);
-    router.push('/');
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isUserMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <Link href="/user/profile" legacyBehavior>
-        <MenuItem onClick={handleMenuClose} href="">
-          <ListItemIcon>
-            <AccountCircleIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>{t('profile')}</ListItemText>
-        </MenuItem>
-      </Link>
-      <Link href="/user/settings" legacyBehavior>
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <SettingsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>{t('settings')}</ListItemText>
-        </MenuItem>
-      </Link>
-      <MenuItem onClick={handleLogout}>
-        <ListItemIcon>
-          <LogoutIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>{t('log_out')}</ListItemText>
-      </MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
-  const handleOpenLangMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElLang(event.currentTarget);
-  };
-
-  const handleCloseLangMenu = () => {
-    setAnchorElLang(null);
-  };
+  }));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Container maxWidth={mainConfig.maxContainerWidth}>
-          <Toolbar disableGutters>
+          {/* <StyledToolbar disableGutters> */}
+          <StyledToolbar
+            disableGutters
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {!isDesktop && (
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Link href="/" legacyBehavior>
               <Typography
                 variant="h5"
                 noWrap
                 component="div"
-                sx={{ display: { xs: 'none', sm: 'block' }, cursor: 'pointer' }}
+                sx={{
+                  display: { xs: 'none', sm: 'block' },
+                  cursor: 'pointer',
+                  overflow: 'visible',
+                }}
               >
                 {mainConfig.appName}
               </Typography>
             </Link>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase placeholder={t('search')} inputProps={{ 'aria-label': 'search' }} />
-            </Search>
-            <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title={t('language')}>
-                <IconButton
-                  onClick={handleOpenLangMenu}
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  aria-label="language"
-                  sx={{ mr: 3 }}
-                >
-                  <Typography variant="body1">
-                    {String(selectedLang?.id || 'EN').toUpperCase()}
-                  </Typography>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElLang}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElLang)}
-                onClose={handleCloseLangMenu}
-              >
-                {languages?.map((lang) => (
-                  <MenuItem key={lang.id} onClick={handleCloseLangMenu}>
-                    <Link href={`${router.asPath}`} passHref locale={lang.id}>
-                      <Typography textAlign="center">{lang.name}</Typography>
-                    </Link>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-              {isAuthenticated ? (
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              ) : (
-                <Button
-                  color="inherit"
-                  variant="outlined"
-                  onClick={() => setIsAuthenticated(true)}
-                  startIcon={<LoginIcon />}
-                  sx={{ whiteSpace: 'nowrap' }}
-                >
-                  {t('sign_up')}
-                </Button>
-              )}
-            </Box>
-          </Toolbar>
+            {isDesktop && <Categories />}
+            {isDesktop && (
+              <Search sx={{ flexGrow: 1 }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder={t('search')}
+                  inputProps={{ 'aria-label': 'search', style: { width: '100%' } }}
+                />
+              </Search>
+            )}
+            <Stack direction="row" alignItems="center">
+              <LanguageSelector />
+              <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+                <MenuAccount />
+              </Box>
+            </Stack>
+          </StyledToolbar>
+          {!isDesktop && (
+            <StyledToolbar disableGutters>
+              <Search sx={{ flexGrow: 1 }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder={t('search')}
+                  inputProps={{ 'aria-label': 'search', style: { width: '100%' } }}
+                />
+              </Search>
+            </StyledToolbar>
+          )}
+          {/* </StyledToolbar> */}
         </Container>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }
